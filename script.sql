@@ -1,7 +1,7 @@
 CREATE TABLE dept (
     deptid INT AUTO_INCREMENT PRIMARY KEY,
-    deptname VARCHAR(10) NOT NULL,
-    deptfullname VARCHAR(100) NOT NULL,
+    deptname VARCHAR(10) NOT NULL UNIQUE,      
+    deptfullname VARCHAR(100) NOT NULL UNIQUE,
     hodname VARCHAR(20) NOT NULL
 );
 
@@ -10,7 +10,7 @@ CREATE TABLE students (
     name VARCHAR(50) NOT NULL,
     age INT NOT NULL,
     gender ENUM('Male', 'Female') NOT NULL,
-    phone VARCHAR(10) NOT NULL,
+    phone VARCHAR(10) NOT NULL UNIQUE,
     fathername VARCHAR(50) NOT NULL,
     mothername VARCHAR(50) NOT NULL,
     address TEXT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE exam (
     rollno INT,
     subjectcode VARCHAR(50) NOT NULL,
     subject VARCHAR(100) NOT NULL,
-    mark INT NOT NULL,  
+    mark INT NOT NULL, 
     status TEXT NOT NULL,
     FOREIGN KEY (rollno) REFERENCES students(rollno)
 );
