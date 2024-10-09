@@ -38,7 +38,7 @@ def main(page: ft.Page):
             controls=[
                 navbar,
                 ft.Row([rollno_field, phone_field, search_button], alignment=ft.MainAxisAlignment.CENTER),
-                ft.Row([student_details],alignment=ft.MainAxisAlignment.CENTER),
+                ft.Row([student_details],alignment=ft.MainAxisAlignment.CENTER,spacing=10),
                 add_student_button
             ]
         )
@@ -88,7 +88,7 @@ def main(page: ft.Page):
                 f"Father's Name: {student['fathername']}\n"
                 f"Mother's Name: {student['mothername']}\n"
                 f"Address: {student['address']}\n"
-                f"Department ID: {student['deptid']}"
+                f"Department : {student['deptname']}"
             )
             student_details.value = details
         else:
