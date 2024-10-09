@@ -38,7 +38,7 @@ def main(page: ft.Page):
             controls=[
                 navbar,
                 ft.Row([rollno_field, phone_field, search_button], alignment=ft.MainAxisAlignment.CENTER),
-                student_details,
+                ft.Row([student_details],alignment=ft.MainAxisAlignment.CENTER),
                 add_student_button
             ]
         )

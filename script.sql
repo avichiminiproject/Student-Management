@@ -23,15 +23,30 @@ CREATE TABLE exam (
     rollno VARCHAR(50),
     subjectcode VARCHAR(50) NOT NULL,
     subject VARCHAR(100) NOT NULL,
-    mark INT DEFAULT NULL
-    status ENUM('PASS', 'FAIL', 'AAA'),
+    mark INT DEFAULT NULL,
+    status ENUM('PASS', 'FAIL', 'AAA') DEFAULT 'AAA',
     FOREIGN KEY (rollno) REFERENCES students(rollno)
 );
 
 DELIMITER $$
 
-CREATE TRIGGER update_exam_status
-AFTER INSERT ON exam
+-- Trigger for handling BEFORE INSERT
+CREATE TRIGGER update_exam_status_before_insert
+BEFORE INSERT ON exam
+FOR EACH ROW
+BEGIN
+    IF NEW.mark IS NULL THEN
+        SET NEW.status = 'AAA';
+    ELSEIF NEW.mark >= 40 THEN
+        SET NEW.status = 'PASS';
+    ELSE
+        SET NEW.status = 'FAIL';
+    END IF;
+END $$
+
+-- Trigger for handling BEFORE UPDATE
+CREATE TRIGGER update_exam_status_before_update
+BEFORE UPDATE ON exam
 FOR EACH ROW
 BEGIN
     IF NEW.mark IS NULL THEN
@@ -46,22 +61,21 @@ END $$
 DELIMITER ;
 
 
+
 -- Insert dummy data into dept table
 INSERT INTO dept (deptid, deptname, deptfullname, hodname) VALUES 
 (1,'BCA', 'Computer Application', 'MS.A.Valliyamai'),
 (2,'BSC', 'Computer Science', 'I dont know'),
-(3,'BCOM', 'Accounts & Finance', 'i dont Know');
+(3,'BCOM', 'Accounts & Finance', 'I dont know');
 
 -- Insert dummy data into students table
 INSERT INTO students (rollno, name, age, gender, phone, fathername, mothername, address, deptname) VALUES 
-('22BCA28', 'John Doe', 20, 'Male', '1234567890', 'Richard Doe', 'Jane Doe', '123 Elm St, Springfield', 'Computer Application'),
-('22BSC03', 'Jane Smith', 19, 'Female', '0987654321', 'Mark Smith', 'Lucy Smith', '456 Oak St, Springfield', 'Computer Science'),
-('22BCOM15', 'Emily Davis', 21, 'Female', '1112223333', 'Thomas Davis', 'Emma Davis', '789 Pine St, Springfield', 'Accounts & Finance');
-
+('22BCA28', 'John Doe', 20, 'Male', '1234567890', 'Richard Doe', 'Jane Doe', '123 Elm St, Springfield', 'BCA'),
+('22BSC03', 'Jane Smith', 19, 'Female', '0987654321', 'Mark Smith', 'Lucy Smith', '456 Oak St, Springfield', 'BSC'),
+('22BCOM15', 'Emily Davis', 21, 'Female', '1112223333', 'Thomas Davis', 'Emma Davis', '789 Pine St, Springfield', 'BCOM');
 
 -- Insert dummy data into exam table
 INSERT INTO exam (rollno, subjectcode, subject, mark) VALUES 
 ('22BCA28', 'TAM1L', 'LANGUAGE', 85),
-('22BSC03', 'ENG2H', 'ENGLISH', 78),
-('22BCOM15', 'MATH3', 'MATHEMATICS', 90);
-
+('22BSC03', 'ENG2H', 'ENGLISH',45),
+('22BCOM15', 'MATH3', 'MATHEMATICS', 30);
