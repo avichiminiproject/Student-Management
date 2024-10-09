@@ -24,9 +24,27 @@ CREATE TABLE exam (
     subjectcode VARCHAR(50) NOT NULL,
     subject VARCHAR(100) NOT NULL,
     mark INT NOT NULL, 
-    status ENUM('PASS', 'FAIL', 'AAA') NOT NULL,
+    status ENUM('PASS', 'FAIL', 'AAA'),
     FOREIGN KEY (rollno) REFERENCES students(rollno)
 );
+
+DELIMITER $$
+
+CREATE TRIGGER update_exam_status
+AFTER INSERT ON exam
+FOR EACH ROW
+BEGIN
+    IF NEW.mark IS NULL THEN
+        SET NEW.status = 'AAA';
+    ELSEIF NEW.mark >= 40 THEN
+        SET NEW.status = 'PASS';
+    ELSE
+        SET NEW.status = 'FAIL';
+    END IF;
+END $$
+
+DELIMITER ;
+
 
 -- Insert dummy data into dept table
 INSERT INTO dept (deptid, deptname, deptfullname, hodname) VALUES 
@@ -42,8 +60,8 @@ INSERT INTO students (rollno, name, age, gender, phone, fathername, mothername, 
 
 
 -- Insert dummy data into exam table
-INSERT INTO exam (rollno, subjectcode, subject, mark, status) VALUES 
-('22BCA28', 'TAM1L', 'LANGUAGE', 85, 'PASS'),
-('22BSC03', 'ENG2H', 'ENGLISH', 78, 'FAIL'),
-('22BCOM15', 'MATH3', 'MATHEMATICS', 90, 'AAA');
+INSERT INTO exam (rollno, subjectcode, subject, mark) VALUES 
+('22BCA28', 'TAM1L', 'LANGUAGE', 85),
+('22BSC03', 'ENG2H', 'ENGLISH', 78),
+('22BCOM15', 'MATH3', 'MATHEMATICS', 90);
 
