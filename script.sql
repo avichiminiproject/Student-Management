@@ -23,7 +23,7 @@ CREATE TABLE exam (
     rollno VARCHAR(50),
     subjectcode VARCHAR(50) NOT NULL,
     subject VARCHAR(100) NOT NULL,
-    mark INT NOT NULL, 
+    mark INT DEFAULT NULL
     status ENUM('PASS', 'FAIL', 'AAA'),
     FOREIGN KEY (rollno) REFERENCES students(rollno)
 );
