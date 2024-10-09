@@ -39,7 +39,6 @@ def main(page: ft.Page):
                 navbar,
                 ft.Row([rollno_field, phone_field, search_button], alignment=ft.MainAxisAlignment.CENTER),
                 student_details,
-                copy_button,
                 add_student_button
             ]
         )
@@ -82,17 +81,8 @@ def main(page: ft.Page):
         if student:
             details = f"Rollno: {student['rollno']}\nName: {student['name']}\nPhone: {student['phone']}"
             student_details.value = details
-            copy_button.visible = True
         else:
             student_details.value = "No student found"
-            copy_button.visible = False
-        page.update()
-
-    # Function to copy student details to clipboard
-    def copy_to_clipboard(e):
-        page.set_clipboard(student_details.value)
-        page.snack_bar = ft.SnackBar(ft.Text("Copied to clipboard"))
-        page.snack_bar.open = True
         page.update()
 
     # Function to handle opening the form for adding a student
@@ -125,7 +115,6 @@ def main(page: ft.Page):
     search_button = ft.TextButton("Search", on_click=search_student_details, style=ft.ButtonStyle(color="white", bgcolor='blue'))
 
     student_details = ft.Text(value="", size=18)
-    copy_button = ft.TextButton("Copy to Clipboard", on_click=copy_to_clipboard, visible=False)
 
     # Add student button
     add_student_button = ft.TextButton("Add Student", on_click=open_add_student_form)
