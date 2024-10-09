@@ -182,8 +182,8 @@ def main(page: ft.Page):
     page.on_route_change = route_change
     page.go(page.route)  # Start at the initial route
 
-    # Dialog assignment
-    page.dialog = add_student_dialog
+    # Append the dialog to page overlay
+    page.overlay.append(add_student_dialog)
 
 if __name__ == '__main__':
     ft.app(target=main)
