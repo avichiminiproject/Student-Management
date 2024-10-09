@@ -14,8 +14,8 @@ CREATE TABLE students (
     fathername VARCHAR(50) NOT NULL,
     mothername VARCHAR(50) NOT NULL,
     address TEXT NOT NULL,
-    deptid INT,
-    FOREIGN KEY (deptid) REFERENCES dept(deptid)
+    deptname VARCHAR(10),
+    FOREIGN KEY (deptname) REFERENCES dept(deptname)
 );
 
 CREATE TABLE exam (
@@ -35,12 +35,12 @@ INSERT INTO dept (deptid, deptname, deptfullname, hodname) VALUES
 (3,'BCOM', 'Accounts & Finance', 'i dont Know');
 
 -- Insert dummy data into students table
-INSERT INTO students (rollno, name, age, gender, phone, fathername, mothername, address, deptid) VALUES 
-('22BCA28', 'John Doe', 20, 'Male', '1234567890', 'Richard Doe', 'Jane Doe', '123 Elm St, Springfield', 1),
-('22BSC03', 'Jane Smith', 19, 'Female', '0987654321', 'Mark Smith', 'Lucy Smith', '456 Oak St, Springfield', 2),
-('22BCOM15', 'Emily Davis', 21, 'Female', '1112223333', 'Thomas Davis', 'Emma Davis', '789 Pine St, Springfield', 3);
+INSERT INTO students (rollno, name, age, gender, phone, fathername, mothername, address, deptname) VALUES 
+('22BCA28', 'John Doe', 20, 'Male', '1234567890', 'Richard Doe', 'Jane Doe', '123 Elm St, Springfield', 'Computer Application'),
+('22BSC03', 'Jane Smith', 19, 'Female', '0987654321', 'Mark Smith', 'Lucy Smith', '456 Oak St, Springfield', 'Computer Science'),
+('22BCOM15', 'Emily Davis', 21, 'Female', '1112223333', 'Thomas Davis', 'Emma Davis', '789 Pine St, Springfield', 'Accounts & Finance');
 
--- Insert dummy data into exam table
+
 -- Insert dummy data into exam table
 INSERT INTO exam (rollno, subjectcode, subject, mark, status) VALUES 
 ('22BCA28', 'TAM1L', 'LANGUAGE', 85, 'PASS'),

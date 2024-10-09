@@ -79,7 +79,17 @@ def main(page: ft.Page):
         phone = phone_field.value
         student = search_student(rollno=rollno, phone=phone)
         if student:
-            details = f"Rollno: {student['rollno']}\nName: {student['name']}\nPhone: {student['phone']}"
+            details = (
+                f"Rollno: {student['rollno']}\n"
+                f"Name: {student['name']}\n"
+                f"Age: {student['age']}\n"
+                f"Gender: {student['gender']}\n"
+                f"Phone: {student['phone']}\n"
+                f"Father's Name: {student['fathername']}\n"
+                f"Mother's Name: {student['mothername']}\n"
+                f"Address: {student['address']}\n"
+                f"Department ID: {student['deptid']}"
+            )
             student_details.value = details
         else:
             student_details.value = "No student found"
